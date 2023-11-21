@@ -61,12 +61,12 @@ elif graph_choice == 'Favorite Genre':
 elif graph_choice == 'Mental Health vs. Favorite Genre':
     st.subheader("Mental Health vs. Favorite Genre")
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['Insomnia'], ci=None, ax=ax)
+    sns.lineplot(x=new_df['Fav genre'], y=new_df['Insomnia'], ci=None, ax=ax,palette='flare')
     plt.xticks(rotation=90)
     st.pyplot(fig)
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['OCD'], ci=None, ax=ax)
+    sns.lineplot(x=new_df['Fav genre'], y=new_df['OCD'], ci=None, ax=ax,)
     plt.xticks(rotation=90)
     st.pyplot(fig)
 
