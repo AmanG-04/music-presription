@@ -13,7 +13,6 @@ df.drop(['Timestamp', 'Permissions'], axis=1, inplace=True)
 # Drop rows with missing values in specific columns
 df.dropna(subset=['Age', 'Primary streaming service', 'While working', 'Instrumentalist', 'Composer', 'Foreign languages', 'Music effects'], inplace=True)
 
-# Fill missing values in the 'BPM' column with the median
 df['BPM'] = df['BPM'].fillna(df['BPM'].median())
 
 # Define upper and lower limits for outlier detection
