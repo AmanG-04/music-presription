@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the data
-df = pd.read_csv("/home/garvit/Labs/DS Lab/mxmh_survey_results.csv")
+df = pd.read_csv("mxmh_survey_results.csv")
 
 # Drop unnecessary columns
 df.drop(['Timestamp', 'Permissions'], axis=1, inplace=True)
@@ -37,13 +37,13 @@ st.write(new_df)
 # st.subheader("Boxplot of Hours per day")
 # st.boxplot(new_df['Hours per day'])
 
-# Heatmap
-st.subheader("Correlation Heatmap")
-numeric_columns = new_df.select_dtypes(include=[np.number]).columns
-correlation_matrix = new_df[numeric_columns].corr()
-fig, ax = plt.subplots(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, cbar=True, cmap='Blues', ax=ax)
-st.pyplot(fig)
+# # Heatmap
+# st.subheader("Correlation Heatmap")
+# numeric_columns = new_df.select_dtypes(include=[np.number]).columns
+# correlation_matrix = new_df[numeric_columns].corr()
+# fig, ax = plt.subplots(figsize=(10, 8))
+# sns.heatmap(correlation_matrix, annot=True, cbar=True, cmap='Blues', ax=ax)
+# st.pyplot(fig)
 
 # Countplot
 st.subheader("Countplot of Primary streaming service")
