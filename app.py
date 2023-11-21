@@ -29,13 +29,13 @@ new_df = df.loc[(df["Age"] < age_upper_limit) & (df["BPM"] < BPM_upper_limit) & 
 # Display the filtered dataframe
 st.write(new_df)
 
-# Plotting using Streamlit
-st.subheader("Boxplot of Age")
-st.boxplot(new_df['Age'])
-st.subheader("Boxplot of BPM")
-st.boxplot(new_df['BPM'])
-st.subheader("Boxplot of Hours per day")
-st.boxplot(new_df['Hours per day'])
+# # Plotting using Streamlit
+# st.subheader("Boxplot of Age")
+# st.boxplot(new_df['Age'])
+# st.subheader("Boxplot of BPM")
+# st.boxplot(new_df['BPM'])
+# st.subheader("Boxplot of Hours per day")
+# st.boxplot(new_df['Hours per day'])
 
 # Heatmap
 st.subheader("Correlation Heatmap")
