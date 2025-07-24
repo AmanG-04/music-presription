@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+st.set_page_config(layout="wide")
 
 with open("designing.css") as source_des:
         st.markdown(f'<style>{source_des.read()}</style>', unsafe_allow_html=True)
@@ -24,114 +25,106 @@ new_df = df.loc[(df["Age"] < age_upper_limit) & (df["BPM"] < BPM_upper_limit) & 
 
 st.title("THE MUSIC PRESCRIPTION")
 
-st.text("""Gospel music resonates most with individuals experiencing insomnia,
-particularly among older age groups, and has shown to improve their condition significantly.
+# Create two columns: left for text, right for graphs
+left_col, right_col = st.columns([10, 10])  # [width ratio]
 
-Lofi music is predominantly favored by individuals dealing with OCD, Anxiety, and Depression,
-primarily in their mid-20s. Evidence suggests its positive impact on alleviating these
-conditions among participants.
+with left_col:
+    st.markdown("### 🎧 How Different Music Genres Affect Mental Health")
 
-Video game music exhibits adverse effects on various mental health conditions and is
-advised to be avoided. Typically preferred by individuals in their early 20s, its association
-with worsening mental health is notable.
+    with st.expander("🕊️ Gospel Music"):
+        st.markdown("""
+        ✅ Improves **insomnia**, especially in **older adults**.
+        """)
 
-R&B, Jazz, K-pop, Country, EDM, Hip hop, Folk, Metal, and Latin genres either have a neutral
-effect or show potential in improving mental well-being without adverse consequences.
+    with st.expander("🌙 Lofi Beats"):
+        st.markdown("""
+        ✅ Calms **OCD, anxiety, and depression**.  
+        👥 Mostly preferred by people in their **mid-20s**.
+        """)
 
-Rock music might exacerbate conditions like Insomnia and Depression, outweighing any potential
-benefits for individuals dealing with these issues.
+    with st.expander("🚫 Video Game Music"):
+        st.markdown("""
+        ❌ Worsens **multiple mental health conditions**.  
+        ⚠️ Common among people in their **early 20s** — best to avoid.
+        """)
 
-Classical music might not be beneficial for individuals with OCD, Anxiety, and Depression, showing
-potential to worsen their condition. However, it indicates a more promising effect for Insomnia, with
-higher chances of improvement.
+    with st.expander("⚡ Rock"):
+        st.markdown("""
+        ❌ Linked to increased **insomnia** and **depression**.  
+        ⚠️ May do more harm than good for mental health.
+        """)
 
-Listening to Lofi and Gospel music for 4-6 hours has shown promise in improving the aforementioned
-conditions. Conversely, even a 2-hour exposure to Video game music and pop seems to negatively
-impact some participants' mental health.""")
+    with st.expander("🎻 Classical"):
+        st.markdown("""
+        ⚠️ May worsen **OCD, anxiety, and depression**.  
+        ✅ Shows promise for **improving insomnia**.
+        """)
 
-graph_choice = st.selectbox('Select a graph', ['Primary streaming service', 'Does music make an impact on your Mental Health?', 'Favorite Genre', 'Influence of favorite genre on mental health', 'Dependency of Genre and various factors on Mental Health'])
+    with st.expander("🎶 Other Genres (R&B, Jazz, K-pop, etc.)"):
+        st.markdown("""
+        🟡 Generally have a **neutral or mildly positive** effect.  
+        📊 No significant negative associations found.
+        """)
 
-if graph_choice =='Primary streaming service':
-    st.subheader("Primary streaming service")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.countplot(x=new_df['Primary streaming service'], palette='Spectral')
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+    with st.expander("⏰ Listening Duration Matters"):
+        st.markdown("""
+        ✅ **4–6 hours/day** of Gospel or Lofi → positive mental health outcomes.  
+        ❌ Just **2 hours/day** of Video Game or Pop → may worsen conditions.
+        """)
 
-elif graph_choice == 'Does music make an impact on your Mental Health?':
-    st.subheader("Does music make an impact on your Mental Health?")
-    effects = new_df['Music effects'].value_counts()
-    explode = (0, 0.2, 0)
-    fig, ax = plt.subplots()
-    effects.plot(kind='pie', ylabel='', ax=ax, explode=explode, autopct='%1.1f%%',
-        shadow=True, startangle=90)
-    plt.title("Does music make an impact on your Mental Health?")
-    st.pyplot(fig)
 
-elif graph_choice == 'Favorite Genre':
-    st.subheader("Favorite Genre")
-    y = new_df['Fav genre'].value_counts()
-    fig, ax = plt.subplots(figsize=(10, 6))
-    y.plot(kind='bar', ax=ax,color='g')
-    plt.xticks(rotation=60)
-    st.pyplot(fig)
+with right_col:
+    graph_choice = st.selectbox(
+        'Select a graph',
+        [
+            'Primary streaming service',
+            'Does music make an impact on your Mental Health?',
+            'Favorite Genre',
+            'Influence of favorite genre on mental health',
+            'Dependency of Genre and various factors on Mental Health'
+        ]
+    )
 
-elif graph_choice == 'Influence of favorite genre on mental health':
-    st.subheader("Influence of favorite genre on mental health")
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['Insomnia'], ci=None, ax=ax, marker='*', markerfacecolor='r',markersize=10,linewidth=5)
-    plt.xticks(rotation=60)
-    st.pyplot(fig)
+    if graph_choice == 'Primary streaming service':
+        st.subheader("Primary streaming service")
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.countplot(x=new_df['Primary streaming service'], palette='Spectral')
+        plt.xticks(rotation=45)
+        st.pyplot(fig)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['OCD'], ci=None, ax=ax, marker='*', markerfacecolor='r',markersize=10,linewidth=5)
-    plt.xticks(rotation=60)
-    st.pyplot(fig)
+    elif graph_choice == 'Does music make an impact on your Mental Health?':
+        st.subheader("Does music make an impact on your Mental Health?")
+        effects = new_df['Music effects'].value_counts()
+        explode = (0, 0.2, 0)
+        fig, ax = plt.subplots()
+        effects.plot(kind='pie', ylabel='', ax=ax, explode=explode, autopct='%1.1f%%',
+                     shadow=True, startangle=90)
+        plt.title("Does music make an impact on your Mental Health?")
+        st.pyplot(fig)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['Depression'], ci=None, ax=ax, marker='*', markerfacecolor='r',markersize=10,linewidth=5)
-    plt.xticks(rotation=60)
-    st.pyplot(fig)
+    elif graph_choice == 'Favorite Genre':
+        st.subheader("Favorite Genre")
+        y = new_df['Fav genre'].value_counts()
+        fig, ax = plt.subplots(figsize=(10, 6))
+        y.plot(kind='bar', ax=ax, color='g')
+        plt.xticks(rotation=60)
+        st.pyplot(fig)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.lineplot(x=new_df['Fav genre'], y=new_df['Anxiety'], ci=None, ax=ax, marker='*', markerfacecolor='r',markersize=10,linewidth=5)
-    plt.xticks(rotation=60)
-    st.pyplot(fig)
+    elif graph_choice == 'Influence of favorite genre on mental health':
+        st.subheader("Influence of favorite genre on mental health")
 
-elif graph_choice == 'Dependency of Genre and various factors on Mental Health':
+        for col in ['Insomnia', 'OCD', 'Depression', 'Anxiety']:
+            fig, ax = plt.subplots(figsize=(10, 6))
+            sns.lineplot(x=new_df['Fav genre'], y=new_df[col], ci=None, ax=ax,
+                         marker='*', markerfacecolor='r', markersize=10, linewidth=5)
+            plt.xticks(rotation=60)
+            st.pyplot(fig)
 
-    st.subheader("Dependency of Genre and various factors on Mental Health")
-    figure1, ax1 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['Age'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure1)
+    elif graph_choice == 'Dependency of Genre and various factors on Mental Health':
+        st.subheader("Dependency of Genre and various factors on Mental Health")
 
-    # Barplot 2
-    figure2, ax2 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['Hours per day'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure2)
-
-    # Barplot 3
-    figure3, ax3 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['Insomnia'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure3)
-
-    # Barplot 4
-    figure4, ax4 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['OCD'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure4)
-
-    # Barplot 5
-    figure5, ax5 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['Depression'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure5)
-
-    # Barplot 6
-    figure6, ax6 = plt.subplots(figsize=(8, 5))
-    sns.barplot(x=new_df['Fav genre'], y=new_df['Anxiety'], hue=new_df['Music effects'], palette="rainbow")
-    plt.tight_layout()
-    st.pyplot(figure6)
+        for col in ['Age', 'Hours per day', 'Insomnia', 'OCD', 'Depression', 'Anxiety']:
+            fig, ax = plt.subplots(figsize=(8, 5))
+            sns.barplot(x=new_df['Fav genre'], y=new_df[col], hue=new_df['Music effects'], palette="rainbow")
+            plt.tight_layout()
+            st.pyplot(fig)

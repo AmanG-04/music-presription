@@ -15,3 +15,46 @@
                     50% {background-position: 100% 100%;}
                       100% {background-position: 0% 0%;}
                       }
+
+                      /* designing.css */
+h1, h2, h3, h4 {
+    font-size: 2rem !important;
+}
+
+body, p, li {
+    font-size: 1.1rem !important;
+}
+
+div[data-testid="column"] {
+    padding: 10px 3px;
+}
+
+/* 📦 Expander Styling */
+div[role="button"][aria-expanded] {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+/* 🎯 Center Title and Move to Top */
+h1 {
+    text-align: center !important;
+    margin-top: -40px !important;
+    margin-bottom: 10px !important;
+}
+
+h2 {
+    text-align: center !important;
+    margin-top: -10px !important;
+    margin-bottom: 30px !important;
+}
+
+/* 🎧 Optional: Center emoji heading too */
+h2:has(img) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
